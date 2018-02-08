@@ -1,0 +1,341 @@
+SFO-M-TCRAWFORD01:pantsbuild-repro-AbstractMethodError travis$ ./repro.sh
++ echo '************************************************************************'
+************************************************************************
++ echo 'Perform a clean build'
+Perform a clean build
++ echo '************************************************************************'
+************************************************************************
++ rm -rf ./.cache/
++ rm -rf ./dist/
++ ./pants clean-all
+
+16:15:22 00:00 [main]
+               (To run a reporting server: ./pants server)
+16:15:22 00:00   [setup]
+16:15:22 00:00     [parse]
+               Executing tasks in goals: clean-all
+16:15:22 00:00   [clean-all]
+16:15:22 00:00     [ng-killall]
+16:15:22 00:00     [kill-pantsd]
+16:15:23 00:01     [clean-all]INFO] For async removal, run `./pants clean-all --async`
+
+16:15:23 00:01   [complete]
+               SUCCESS
++ echo '************************************************************************'
+************************************************************************
++ echo 'Build the binary'
+Build the binary
++ echo '************************************************************************'
+************************************************************************
++ ./pants binary src/main/scala/com/foo/myfancyjob:bin
+
+16:15:24 00:00 [main]
+               (To run a reporting server: ./pants server)
+16:15:24 00:00   [setup]
+16:15:24 00:00     [parse]
+               Executing tasks in goals: jvm-platform-validate -> bootstrap -> imports -> unpack-jars -> deferred-sources -> gen -> pyprep -> resolve -> resources -> compile -> binary
+16:15:24 00:00   [jvm-platform-validate]
+16:15:24 00:00     [jvm-platform-validate]WARN] No default jvm platform is defined.
+
+16:15:24 00:00       [cache]
+                   No cached artifacts for 4 targets.
+                   Invalidated 4 targets.
+16:15:24 00:00   [bootstrap]
+16:15:24 00:00     [substitute-aliased-targets]
+16:15:24 00:00     [jar-dependency-management]
+16:15:24 00:00     [bootstrap-jvm-tools]
+16:15:24 00:00     [provide-tools-jar]
+16:15:24 00:00   [imports]
+16:15:24 00:00     [ivy-imports]
+16:15:25 00:01   [unpack-jars]
+16:15:25 00:01     [unpack-jars]
+16:15:25 00:01   [deferred-sources]
+16:15:25 00:01     [deferred-sources]
+16:15:25 00:01   [gen]
+16:15:25 00:01     [antlr-java]
+16:15:25 00:01     [antlr-py]
+16:15:25 00:01     [jaxb]
+16:15:25 00:01     [protoc]
+16:15:25 00:01     [ragel]
+16:15:25 00:01     [thrift-java]
+16:15:25 00:01     [thrift-py]
+16:15:25 00:01     [wire]
+16:15:25 00:01   [pyprep]
+16:15:25 00:01     [interpreter]
+16:15:29 00:05     [requirements]
+16:15:29 00:05     [sources]
+16:15:29 00:05   [resolve]
+16:15:29 00:05     [ivy]
+16:15:30 00:06       [cache]
+16:15:30 00:06       [bootstrap-nailgun-server]
+16:15:30 00:06       [cache]
+                   No cached artifacts for 2 targets.
+                   Invalidated 2 targets.
+16:15:30 00:06       [ivy-resolve]
+16:15:31 00:07     [coursier]
+16:15:31 00:07   [resources]
+16:15:31 00:07     [prepare]
+16:15:31 00:07     [services]
+16:15:31 00:07   [compile]
+16:15:31 00:07     [compile-jvm-prep-command]
+16:15:31 00:07       [jvm_prep_command]
+16:15:31 00:07     [compile-prep-command]
+16:15:31 00:07     [compile]
+16:15:31 00:07     [zinc]
+16:15:31 00:07       [cache]
+                   No cached artifacts for 3 targets.
+                   Invalidated 3 targets.
+16:15:31 00:07       [isolation-zinc-pool-bootstrap]
+                   [1/3] Compiling 1 zinc source in 1 target (src/main/scala/com/foo/job:job).
+16:15:31 00:07       [compile]
+
+16:15:31 00:07         [cache]
+                     No cached artifacts for 1 target.
+                     Invalidated 1 target.
+16:15:31 00:07         [cache]
+16:15:31 00:07         [bootstrap-compiler-interface]
+16:15:31 00:07         [cache]
+16:15:31 00:07         [bootstrap-jar-tool]
+16:15:32 00:08         [cache]
+16:15:32 00:08         [bootstrap-jarjar]
+16:15:33 00:09         [shade-compiler-interface]
+16:15:34 00:10         [cache]
+16:15:34 00:10         [bootstrap-compiler-bridge]
+16:15:35 00:11         [cache]
+                     No cached artifacts for 1 target.
+                     Invalidated 1 target.
+16:15:35 00:11         [cache]
+16:15:35 00:11         [bootstrap-zinc]
+16:15:37 00:13         [shade-zinc]
+16:16:20 00:56         [cache]
+16:16:20 00:56         [bootstrap-scalac_2_11]
+16:16:21 00:57         [zinc]
+                       [info] Compiling 1 Scala source to /Users/travis/src/pantsbuild-repro-AbstractMethodError/.pants.d/compile/zinc/27609ddd7aa2/src.main.scala.com.foo.job.job/current/classes...
+                       [info] Compile success at Feb 8, 2018 4:16:24 PM [3.502s]
+
+                   [2/3] Compiling 1 zinc source in 1 target (src/main/scala/com/foo/fancyjob:fancyjob).
+16:16:25 01:01       [compile]
+
+16:16:25 01:01         [zinc]
+                       [info] Compiling 1 Scala source to /Users/travis/src/pantsbuild-repro-AbstractMethodError/.pants.d/compile/zinc/27609ddd7aa2/src.main.scala.com.foo.fancyjob.fancyjob/current/classes...
+                       [info] Compile success at Feb 8, 2018 4:16:25 PM [0.646s]
+
+                   [3/3] Compiling 1 zinc source in 1 target (src/main/scala/com/foo/myfancyjob:myfancyjob).
+16:16:25 01:01       [compile]
+
+16:16:25 01:01         [zinc]
+                       [info] Compiling 1 Scala source to /Users/travis/src/pantsbuild-repro-AbstractMethodError/.pants.d/compile/zinc/27609ddd7aa2/src.main.scala.com.foo.myfancyjob.myfancyjob/current/classes...
+                       [info] Compile success at Feb 8, 2018 4:16:26 PM [0.502s]
+
+16:16:26 01:02     [jvm-dep-check]
+16:16:26 01:02   [binary]
+16:16:26 01:02     [binary-jvm-prep-command]
+16:16:26 01:02       [jvm_prep_command]
+16:16:26 01:02     [binary-prep-command]
+16:16:26 01:02     [py]
+16:16:26 01:02     [jvm]
+                   creating dist/bin.jar
+16:16:26 01:02       [create-monolithic-jar]
+16:16:26 01:02         [add-internal-classes]
+16:16:26 01:02         [add-dependency-jars]
+16:16:26 01:02     [dup]
+               Waiting for background workers to finish.
+16:16:27 01:03   [complete]
+               SUCCESS
++ echo '************************************************************************'
+************************************************************************
+++ example
+./repro.sh: line 18: example: command not found
++ echo 'RUN THE JAR: observe the  flag is shown in the help.'
+RUN THE JAR: observe the  flag is shown in the help.
++ echo '************************************************************************'
+************************************************************************
++ java -cp dist/bin.jar com.foo.myfancyjob.MyFancyJob -h
+Exception in thread "main" com.twitter.app.FlagParseException: Error parsing flag "h": flag undefined
+usage: com.foo.myfancyjob.MyFancyJob$ [<flag>...]
+flags:
+  -example='hello': Example flag
+  -help='false': Show this help
+global flags:
+  -com.twitter.finagle.util.loadServiceDenied='': A deny list of implementations to ignore. Keys are the fully qualified class names. Any other implementations that are found via `LoadService.apply` are eligible to be used.
+  -com.twitter.finagle.util.loadServiceIgnoredPaths='': Additional packages to be excluded from recursive directory scan
+	at com.foo.job.Job$class.main(Job.scala:25)
+	at com.foo.myfancyjob.MyFancyJob$.main(MyFancyJob.scala:5)
+	at com.foo.myfancyjob.MyFancyJob.main(MyFancyJob.scala)
++ echo '************************************************************************'
+************************************************************************
++ echo 'Rename a flag in the base trait'
+Rename a flag in the base trait
++ echo '************************************************************************'
+************************************************************************
++ sed -i '' s/example/exampleRenamed/g src/main/scala/com/foo/fancyjob/FancyJob.scala
++ echo '************************************************************************'
+************************************************************************
++ echo 'Build incrementally'
+Build incrementally
++ echo '************************************************************************'
+************************************************************************
++ ./pants binary src/main/scala/com/foo/myfancyjob:bin
+
+16:16:28 00:00 [main]
+               (To run a reporting server: ./pants server)
+16:16:28 00:00   [setup]
+16:16:28 00:00     [parse]
+               Executing tasks in goals: jvm-platform-validate -> bootstrap -> imports -> unpack-jars -> deferred-sources -> gen -> pyprep -> resolve -> resources -> compile -> binary
+16:16:29 00:01   [jvm-platform-validate]
+16:16:29 00:01     [jvm-platform-validate]WARN] No default jvm platform is defined.
+
+16:16:29 00:01   [bootstrap]
+16:16:29 00:01     [substitute-aliased-targets]
+16:16:29 00:01     [jar-dependency-management]
+16:16:29 00:01     [bootstrap-jvm-tools]
+16:16:29 00:01     [provide-tools-jar]
+16:16:29 00:01   [imports]
+16:16:29 00:01     [ivy-imports]
+16:16:29 00:01   [unpack-jars]
+16:16:29 00:01     [unpack-jars]
+16:16:29 00:01   [deferred-sources]
+16:16:29 00:01     [deferred-sources]
+16:16:29 00:01   [gen]
+16:16:29 00:01     [antlr-java]
+16:16:29 00:01     [antlr-py]
+16:16:29 00:01     [jaxb]
+16:16:29 00:01     [protoc]
+16:16:29 00:01     [ragel]
+16:16:29 00:01     [thrift-java]
+16:16:29 00:01     [thrift-py]
+16:16:29 00:01     [wire]
+16:16:29 00:01   [pyprep]
+16:16:29 00:01     [interpreter]
+16:16:29 00:01     [requirements]
+16:16:29 00:01     [sources]
+16:16:29 00:01   [resolve]
+16:16:29 00:01     [ivy]
+16:16:29 00:01     [coursier]
+16:16:29 00:01   [resources]
+16:16:29 00:01     [prepare]
+16:16:29 00:01     [services]
+16:16:29 00:01   [compile]
+16:16:29 00:01     [compile-jvm-prep-command]
+16:16:29 00:01       [jvm_prep_command]
+16:16:29 00:01     [compile-prep-command]
+16:16:29 00:01     [compile]
+16:16:29 00:01     [zinc]
+16:16:29 00:01       [cache]
+                   No cached artifacts for 2 targets.
+                   Invalidated 2 targets.
+16:16:29 00:01       [isolation-zinc-pool-bootstrap]
+                   [1/2] Compiling 1 zinc source in 1 target (src/main/scala/com/foo/fancyjob:fancyjob).
+16:16:29 00:01       [compile]
+
+16:16:29 00:01         [zinc]
+                       [info] Compiling 1 Scala source to /Users/travis/src/pantsbuild-repro-AbstractMethodError/.pants.d/compile/zinc/27609ddd7aa2/src.main.scala.com.foo.fancyjob.fancyjob/current/classes...
+                       [info] Compile success at Feb 8, 2018 4:16:30 PM [0.507s]
+
+                   [2/2] Compiling 1 zinc source in 1 target (src/main/scala/com/foo/myfancyjob:myfancyjob).
+16:16:30 00:02       [compile]
+
+16:16:30 00:02         [zinc]
+                       [info] Compile success at Feb 8, 2018 4:16:30 PM [0.013s]
+
+16:16:30 00:02     [jvm-dep-check]
+16:16:30 00:02   [binary]
+16:16:30 00:02     [binary-jvm-prep-command]
+16:16:30 00:02       [jvm_prep_command]
+16:16:30 00:02     [binary-prep-command]
+16:16:30 00:02     [py]
+16:16:30 00:02     [jvm]
+                   creating dist/bin.jar
+16:16:30 00:02       [create-monolithic-jar]
+16:16:30 00:02         [add-internal-classes]
+16:16:30 00:02         [add-dependency-jars]
+16:16:30 00:02     [dup]
+16:16:30 00:02   [complete]
+               SUCCESS
++ echo '************************************************************************'
+************************************************************************
++ echo 'Run the jar again. Observe it fails'
+Run the jar again. Observe it fails
++ echo '************************************************************************'
+************************************************************************
++ java -cp dist/bin.jar com.foo.myfancyjob.MyFancyJob
+Exception in thread "main" java.lang.AbstractMethodError: com.foo.myfancyjob.MyFancyJob$.com$foo$fancyjob$FancyJob$_setter_$com$foo$fancyjob$FancyJob$$exampleRenamed_$eq(Lcom/twitter/app/Flag;)V
+	at com.foo.fancyjob.FancyJob$class.$init$(FancyJob.scala:7)
+	at com.foo.myfancyjob.MyFancyJob$.<init>(MyFancyJob.scala:5)
+	at com.foo.myfancyjob.MyFancyJob$.<clinit>(MyFancyJob.scala)
+	at com.foo.myfancyjob.MyFancyJob.main(MyFancyJob.scala)
++ echo '************************************************************************'
+************************************************************************
++ echo 'Look in the class files and see both old/new flag name in different classes'
+Look in the class files and see both old/new flag name in different classes
++ echo '************************************************************************'
+************************************************************************
++ cd dist/
++ unzip -q -o bin.jar
+++ find com/foo -name '*.class'
++ for x in '$(find com/foo -name '\''*.class'\'')'
++ echo 'com/foo/myfancyjob/MyFancyJob$.class'
+com/foo/myfancyjob/MyFancyJob$.class
++ javap -v 'com/foo/myfancyjob/MyFancyJob$.class'
++ grep example
+  #15 = Utf8               com$foo$fancyjob$FancyJob$$example
+  #25 = NameAndType        #15:#16        // com$foo$fancyjob$FancyJob$$example:Lcom/twitter/app/Flag;
+  #26 = Fieldref           #2.#25         // com/foo/myfancyjob/MyFancyJob$.com$foo$fancyjob$FancyJob$$example:Lcom/twitter/app/Flag;
+  #28 = Utf8               com$foo$fancyjob$FancyJob$_setter_$com$foo$fancyjob$FancyJob$$example_$eq
+  public com.twitter.app.Flag<java.lang.String> com$foo$fancyjob$FancyJob$$example();
+         1: getfield      #26                 // Field com$foo$fancyjob$FancyJob$$example:Lcom/twitter/app/Flag;
+  public void com$foo$fancyjob$FancyJob$_setter_$com$foo$fancyjob$FancyJob$$example_$eq(com.twitter.app.Flag);
+         2: putfield      #26                 // Field com$foo$fancyjob$FancyJob$$example:Lcom/twitter/app/Flag;
++ for x in '$(find com/foo -name '\''*.class'\'')'
++ echo com/foo/myfancyjob/MyFancyJob.class
+com/foo/myfancyjob/MyFancyJob.class
++ javap -v com/foo/myfancyjob/MyFancyJob.class
++ grep example
++ for x in '$(find com/foo -name '\''*.class'\'')'
++ echo 'com/foo/fancyjob/FancyJob$$anonfun$1.class'
+com/foo/fancyjob/FancyJob$$anonfun$1.class
++ javap -v 'com/foo/fancyjob/FancyJob$$anonfun$1.class'
++ grep example
++ for x in '$(find com/foo -name '\''*.class'\'')'
++ echo com/foo/fancyjob/FancyJob.class
+com/foo/fancyjob/FancyJob.class
++ javap -v com/foo/fancyjob/FancyJob.class
++ grep example
+  #22 = Utf8               com$foo$fancyjob$FancyJob$$exampleRenamed
+  #24 = NameAndType        #22:#23        // com$foo$fancyjob$FancyJob$$exampleRenamed:()Lcom/twitter/app/Flag;
+  #25 = InterfaceMethodref #9.#24         // com/foo/fancyjob/FancyJob.com$foo$fancyjob$FancyJob$$exampleRenamed:()Lcom/twitter/app/Flag;
+  #41 = Utf8               exampleRenamed
+  #42 = String             #41            // exampleRenamed
+  #65 = Utf8               com$foo$fancyjob$FancyJob$_setter_$com$foo$fancyjob$FancyJob$$exampleRenamed_$eq
+  #67 = NameAndType        #65:#66        // com$foo$fancyjob$FancyJob$_setter_$com$foo$fancyjob$FancyJob$$exampleRenamed_$eq:(Lcom/twitter/app/Flag;)V
+  #68 = InterfaceMethodref #9.#67         // com/foo/fancyjob/FancyJob.com$foo$fancyjob$FancyJob$_setter_$com$foo$fancyjob$FancyJob$$exampleRenamed_$eq:(Lcom/twitter/app/Flag;)V
+        18: invokeinterface #25,  1           // InterfaceMethod com/foo/fancyjob/FancyJob.com$foo$fancyjob$FancyJob$$exampleRenamed:()Lcom/twitter/app/Flag;
+         7: ldc           #42                 // String exampleRenamed
+        28: invokeinterface #68,  2           // InterfaceMethod com/foo/fancyjob/FancyJob.com$foo$fancyjob$FancyJob$_setter_$com$foo$fancyjob$FancyJob$$exampleRenamed_$eq:(Lcom/twitter/app/Flag;)V
++ for x in '$(find com/foo -name '\''*.class'\'')'
++ echo 'com/foo/fancyjob/FancyJob$class.class'
+com/foo/fancyjob/FancyJob$class.class
++ javap -v 'com/foo/fancyjob/FancyJob$class.class'
++ grep example
+  #22 = Utf8               com$foo$fancyjob$FancyJob$$exampleRenamed
+  #24 = NameAndType        #22:#23        // com$foo$fancyjob$FancyJob$$exampleRenamed:()Lcom/twitter/app/Flag;
+  #25 = InterfaceMethodref #9.#24         // com/foo/fancyjob/FancyJob.com$foo$fancyjob$FancyJob$$exampleRenamed:()Lcom/twitter/app/Flag;
+  #41 = Utf8               exampleRenamed
+  #42 = String             #41            // exampleRenamed
+  #65 = Utf8               com$foo$fancyjob$FancyJob$_setter_$com$foo$fancyjob$FancyJob$$exampleRenamed_$eq
+  #67 = NameAndType        #65:#66        // com$foo$fancyjob$FancyJob$_setter_$com$foo$fancyjob$FancyJob$$exampleRenamed_$eq:(Lcom/twitter/app/Flag;)V
+  #68 = InterfaceMethodref #9.#67         // com/foo/fancyjob/FancyJob.com$foo$fancyjob$FancyJob$_setter_$com$foo$fancyjob$FancyJob$$exampleRenamed_$eq:(Lcom/twitter/app/Flag;)V
+        18: invokeinterface #25,  1           // InterfaceMethod com/foo/fancyjob/FancyJob.com$foo$fancyjob$FancyJob$$exampleRenamed:()Lcom/twitter/app/Flag;
+         7: ldc           #42                 // String exampleRenamed
+        28: invokeinterface #68,  2           // InterfaceMethod com/foo/fancyjob/FancyJob.com$foo$fancyjob$FancyJob$_setter_$com$foo$fancyjob$FancyJob$$exampleRenamed_$eq:(Lcom/twitter/app/Flag;)V
++ for x in '$(find com/foo -name '\''*.class'\'')'
++ echo 'com/foo/job/Job$class.class'
+com/foo/job/Job$class.class
++ javap -v 'com/foo/job/Job$class.class'
++ grep example
++ for x in '$(find com/foo -name '\''*.class'\'')'
++ echo com/foo/job/Job.class
+com/foo/job/Job.class
++ javap -v com/foo/job/Job.class
++ grep example
+SFO-M-TCRAWFORD01:pantsbuild-repro-AbstractMethodError travis$
